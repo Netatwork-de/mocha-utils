@@ -6,7 +6,8 @@
   "typings": "dist/types/index",
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "tsc"
+    "build": "tsc",
+    "gen:changelog": "npx conventional-changelog-cli -i CHANGELOG.md -s"
   },
   "keywords": [
     "mocha",
