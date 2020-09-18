@@ -1,4 +1,7 @@
-// tslint:disable: only-arrow-functions
+/*! ********************************************************************************
+Disclaimer: 
+This is influenced from internals of Aurelia2: https://github.com/aurelia/aurelia
+******************************************************************************** */
 export interface TestContext<TSut> {
 	sut?: TSut;
 }

@@ -10,7 +10,6 @@ import { assert } from 'chai'
 export type ArgumentTransformer = (args: any) => any;
 const identity: ArgumentTransformer = (_) => _;
 
-// export type Spyable = object & Record<any, unknown>;
 const noop = () => { /* noop */ };
 
 export class Spy<T extends object> {
