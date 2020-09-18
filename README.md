@@ -1,5 +1,9 @@
 # @netatwork/mocha-utils
 
+[![npm version](https://img.shields.io/npm/v/@netatwork/mocha-utils)](https://www.npmjs.com/package/@sparser/email-address-parser)
+[![npm download](https://img.shields.io/npm/dt/@netatwork/mocha-utils?label=npm%20download)](https://www.npmjs.com/package/@netatwork/mocha-utils)
+![build status](https://github.com/Netatwork-de/mocha-utils/workflows/build/badge.svg)
+
 A bunch of utilities to be used for a mocha-based test setup.
 
 ## Reporters
