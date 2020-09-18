@@ -155,5 +155,5 @@ const { mockedObject: service, spy: serviceSpy } = createSpy(
 const sut = new Sut(service);
 await sut.service.getData();
 // assert method call
-serviceSPy.isCalled('getData');
+serviceSpy.isCalled('getData');
 ```
