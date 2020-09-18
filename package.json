@@ -1,0 +1,64 @@
+{
+  "name": "@netatwork/mocha-utils",
+  "version": "1.0.0",
+  "description": "Utility package for mocha based test setup",
+  "main": "dist/index.js",
+  "typings": "dist/types/index",
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "tsc"
+  },
+  "keywords": [
+    "mocha",
+    "test",
+    "util"
+  ],
+  "author": "Net at Work GmbH",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Netatwork-de/mocha-utils.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Netatwork-de/mocha-utils/issues"
+  },
+  "homepage": "https://github.com/Netatwork-de/mocha-utils#readme",
+  "devDependencies": {
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
+    "@types/chai": "^4.2.12",
+    "@types/karma": "^5.0.0",
+    "@types/mocha": "^7.0.2",
+    "@types/node": "^14.11.1",
+    "@typescript-eslint/eslint-plugin": "^2.34.0",
+    "@typescript-eslint/parser": "^2.34.0",
+    "chai": "^4.2.0",
+    "eslint": "^6.8.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsdoc": "^21.0.0",
+    "husky": "^4.3.0",
+    "karma": "^5.2.2",
+    "mocha": "^7.2.0",
+    "rimraf": "^3.0.2",
+    "standard-version": "^9.0.0",
+    "typescript": "^3.9.7"
+  },
+  "dependencies": {
+    "mocha-junit-reporter": "^2.0.0"
+  },
+  "peerDependencies": {
+    "chai": "4.x",
+    "karma": "5.x",
+    "mocha": "7.x"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  }
+}

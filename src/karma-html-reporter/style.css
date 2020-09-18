@@ -1,0 +1,20 @@
+.kmhtml {
+    font-size: smaller;
+}
+
+.kmhtml ul {
+    list-style-type: disc;
+    padding-left: 1em;
+}
+
+.kmhtml .passed {
+    color: rgb(0, 128, 0);
+}
+
+.kmhtml .failed {
+    color: rgb(255, 0, 0);
+}
+
+.kmhtml .pending {
+    color: rgb(255, 166, 0)
+}
