@@ -63,7 +63,6 @@ try {
                     this.append(test, currentSuiteContainer);
                 })
                 .on(EVENT_TEST_FAIL, /** @param {import('mocha').Test} test */(test, error) => {
-                    console.log(typeof error, error);
                     this.append(test, currentSuiteContainer, error);
                 })
                 .once(EVENT_RUN_END, () => {
