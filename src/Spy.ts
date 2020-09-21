@@ -1,10 +1,11 @@
 /*! ********************************************************************************
-Disclaimer:
-This is implementation of Spy is influenced from Aurelia2's Spy implementation
-for internal usage.
-Refer: https://github.com/aurelia/aurelia/blob/master/packages/__tests__/Spy.ts
-******************************************************************************** */
-import { assert } from 'chai'
+ * Disclaimer:
+ * This is implementation of Spy is influenced from Aurelia2's Spy implementation
+ * for internal usage.
+ * Refer: https://github.com/aurelia/aurelia/blob/master/packages/__tests__/Spy.ts
+ ******************************************************************************** */
+
+ import { assert } from 'chai'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ArgumentTransformer = (args: any) => any;

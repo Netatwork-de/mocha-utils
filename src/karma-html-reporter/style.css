@@ -18,3 +18,7 @@
 .kmhtml .pending {
     color: rgb(255, 166, 0)
 }
+
+.kmhtml .failed details {
+    color: initial;
+}

@@ -7,6 +7,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "tsc",
+    "dev": "tsc -w --preserveWatchOutput",
     "postbuild": "copyfiles -f src/karma-html-reporter/style.css dist/karma-html-reporter",
     "gen:changelog": "npx conventional-changelog-cli -i CHANGELOG.md -s"
   },
