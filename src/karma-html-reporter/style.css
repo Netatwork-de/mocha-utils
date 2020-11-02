@@ -1,18 +1,56 @@
+:root {
+    --teal: rgb(0, 128, 128);
+    --red: rgb(255, 0, 0);
+    --smokewhite: rgb(245, 245, 245);
+}
+
+body {
+    background-color: var(--smokewhite);
+    font-family: monospace, Monaco;
+}
+
 .kmhtml {
-    font-size: smaller;
+    font-size: 0.75rem;
+}
+
+.kmhtml .dots {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 0.1rem;
+    font-size: large;
+}
+
+.kmhtml .dots .dot {
+    display: inline-block;
+}
+
+.kmhtml .summary {
+    font-size: medium;
+    display: flex;
+    justify-content: space-between;
+    color: var(--smokewhite);
+    padding: 0.25rem;
+}
+
+.kmhtml .summary[data-success] {
+    background: var(--teal);
+}
+
+.kmhtml .summary[data-failure] {
+    background: var(--red);
 }
 
 .kmhtml ul {
-    list-style-type: disc;
+    list-style-type: none;
     padding-left: 1em;
 }
 
 .kmhtml .passed {
-    color: rgb(0, 128, 0);
+    color: var(--teal);
 }
 
 .kmhtml .failed {
-    color: rgb(255, 0, 0);
+    color: var(--red);
 }
 
 .kmhtml .pending {

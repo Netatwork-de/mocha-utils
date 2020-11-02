@@ -30,6 +30,8 @@ try {
         _originalReporter;
         /** @type {HTMLDivElement | undefined} */
         dots;
+        /** @type {HTMLDivElement | undefined} */
+        summary;
         /** @type {HTMLUListElement | undefined} */
         specs;
 
@@ -66,7 +68,24 @@ try {
                     this.append(test, currentSuiteContainer, error);
                 })
                 .once(EVENT_RUN_END, () => {
-                    container.appendChild(/** @type {HTMLUListElement} */(this.specs));
+                    const stats = /** @type {Mocha.Stats} */ (runner.stats);
+                    const span = document.createElement('span');
+                    const numFailures = stats.failures ?? 0;
+                    span.textContent = (numFailures > 0 ? numFailures + ' failures. ' : '')
+                        + stats.passes
+                        + ' of '
+                        + stats.tests
+                        + ' tests passed.'
+                        + ((stats.pending ?? 0) > 0 ? ' ' + stats.pending + ' pending.' : '');
+                    const time = document.createElement('span');
+                    time.textContent = `Finished in ${stats?.duration} ms`;
+                    const summary = /** @type {HTMLDivElement} */ (this.summary);
+                    summary.append(span, time);
+                    summary.dataset[numFailures ? 'failure': 'success']='';
+                    container.append(
+                        /** @type {HTMLDivElement} */(summary),
+                        /** @type {HTMLUListElement} */(this.specs)
+                    );
                 });
         }
 
@@ -78,6 +97,9 @@ try {
                 const container = document.createElement('div');
                 container.classList.add('kmhtml');
                 const dots = this.dots = document.createElement('div');
+                dots.classList.add('dots');
+                this.summary = document.createElement('div');
+                this.summary.classList.add('summary');
                 this.specs = document.createElement('ul');
                 container.appendChild(dots);
                 document.body.appendChild(container);
@@ -114,7 +136,7 @@ try {
             const span = document.createElement('span');
             span.innerHTML = '&bull;';
             span.title = title;
-            span.classList.add($class);
+            span.classList.add($class, 'dot');
             span.style.color = $class;
 
             (/** @type {HTMLDivElement} */(this.dots)).appendChild(span);
