@@ -9,7 +9,7 @@
     "build": "tsc",
     "dev": "tsc -w --preserveWatchOutput",
     "postbuild": "copyfiles -f src/karma-html-reporter/style.css dist/karma-html-reporter",
-    "gen:changelog": "npx conventional-changelog-cli -i CHANGELOG.md -s -r 2"
+    "gen:changelog": "conventional-changelog -i CHANGELOG.md -s -r 2"
   },
   "keywords": [
     "mocha",
@@ -36,6 +36,7 @@
     "@typescript-eslint/eslint-plugin": "^2.34.0",
     "@typescript-eslint/parser": "^2.34.0",
     "chai": "^4.2.0",
+    "conventional-changelog-cli": "^2.1.0",
     "copyfiles": "^2.3.0",
     "eslint": "^6.8.0",
     "eslint-plugin-import": "^2.22.0",
