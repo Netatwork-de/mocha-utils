@@ -11,6 +11,9 @@ body {
 
 .kmhtml {
     font-size: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    position: relative;
 }
 
 .kmhtml .dots {
@@ -40,6 +43,11 @@ body {
     background: var(--red);
 }
 
+.kmhtml .ul-container {
+    max-height: 90vh;
+    overflow: auto;
+}
+
 .kmhtml ul {
     list-style-type: none;
     padding-left: 1em;
@@ -59,4 +67,8 @@ body {
 
 .kmhtml .failed details {
     color: initial;
+}
+
+.kmhtml .failed details summary {
+    cursor: pointer;
 }
