@@ -78,7 +78,7 @@ try {
                         + ' tests passed.'
                         + ((stats.pending ?? 0) > 0 ? ' ' + stats.pending + ' pending.' : '');
                     const time = document.createElement('span');
-                    time.textContent = `Finished in ${stats?.duration} ms`;
+                    time.textContent = `Finished in ${(stats?.duration || 0) / 1000} s`;
                     const summary = /** @type {HTMLDivElement} */ (this.summary);
                     summary.append(span, time);
                     summary.dataset[numFailures ? 'failure': 'success']='';
