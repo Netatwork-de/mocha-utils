@@ -81,10 +81,13 @@ try {
                     time.textContent = `Finished in ${(stats?.duration || 0) / 1000} s`;
                     const summary = /** @type {HTMLDivElement} */ (this.summary);
                     summary.append(span, time);
-                    summary.dataset[numFailures ? 'failure': 'success']='';
+                    summary.dataset[numFailures ? 'failure' : 'success'] = '';
+                    const ulDiv = document.createElement('div');
+                    ulDiv.classList.add('ul-container');
+                    ulDiv.append(/** @type {HTMLUListElement} */(this.specs));
                     container.append(
                         /** @type {HTMLDivElement} */(summary),
-                        /** @type {HTMLUListElement} */(this.specs)
+                        ulDiv
                     );
                 });
         }
@@ -170,7 +173,8 @@ try {
                 //     details.append(errDiv);
                 // }
                 const errDiv = document.createElement('pre');
-                errDiv.innerHTML = /** @type {string} */((/** @type {Error} */(error)).stack);
+                const err = /** @type {Error} */(error);
+                errDiv.innerHTML = /** @type {string} */(err.stack || err.message);
                 details.append(errDiv);
                 li.append(details);
             }
