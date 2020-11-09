@@ -165,16 +165,9 @@ try {
                 summary.textContent = 'Error(s)';
                 details.append(summary);
 
-                // /** @type {string[]} */
-                // const errors = (/** @type {any} */(test)).$errors;
-                // for (const err of errors) {
-                //     const errDiv = document.createElement('pre');
-                //     errDiv.innerHTML = err;
-                //     details.append(errDiv);
-                // }
                 const errDiv = document.createElement('pre');
                 const err = /** @type {Error} */(error);
-                errDiv.innerHTML = /** @type {string} */(err.stack || err.message);
+                errDiv.innerHTML = err.message + '\n' + err.stack;
                 details.append(errDiv);
                 li.append(details);
             }
