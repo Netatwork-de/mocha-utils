@@ -1,3 +1,7 @@
+## <small>1.1.3 (2020-11-09)</small>
+
+* chore: corrected the FF error details for real this time ([bdd7951](https://github.com/Netatwork-de/mocha-utils/commit/bdd7951))
+
 ## <small>1.1.2 (2020-11-09)</small>
 
 * chore: added a max-height to the result ([292755b](https://github.com/Netatwork-de/mocha-utils/commit/292755b))
