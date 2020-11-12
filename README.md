@@ -160,4 +160,17 @@ const sut = new Sut(service);
 await sut.service.getData();
 // assert method call
 serviceSpy.isCalled('getData');
+
+// You can also use it to spy a single method.
+const { mockedObject: service, spy: serviceSpy } = createSpy(
+    /* object to mock       */ new Service(),
+    /* methodName           */ 'getData',
+    /* call through         */ false,
+    /* mock implementations */ () => Promise.resolve([]),
+);
 ```
+
+## Acknowledgements
+
+- The work of the spec wrapper, as well as the Spy is highly influenced by the work done for [Aurelia2](https://github.com/aurelia/aurelia).
+- The HTML reporter is inspired from [`karma-jasmine-html-reporter`](https://www.npmjs.com/package/karma-jasmine-html-reporter).
