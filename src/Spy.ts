@@ -76,7 +76,7 @@ export class Spy<TObject extends object> {
 
 	public isCalled(methodName: MethodNames<TObject>, times?: number): void {
 		const callCount = this.getCallCount(methodName);
-		if (times) {
+		if (times != null) {
 			assert.strictEqual(callCount, times, `expected calls mismatch for ${methodName}`);
 		} else {
 			assert.isAbove(callCount, 0, `expected ${methodName} to have been called at least once, but wasn't`);
