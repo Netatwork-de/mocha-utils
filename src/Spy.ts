@@ -13,7 +13,7 @@ const identity: ArgumentTransformer = (_) => _;
 
 const noop: () => void = () => { /* noop */ };
 
-export class Spy<T extends Record<string, unknown>> {
+export class Spy<T extends object> {
 	public callRecords = new Map<string, unknown[][]>();
 
 	public getMock(objectToMock: T, callThrough: boolean = true, mocks: Partial<T> = {}): T {
@@ -21,8 +21,8 @@ export class Spy<T extends Record<string, unknown>> {
 		const spy = this;
 		return new Proxy<T>(objectToMock, {
 			get(target: T, propertyKey: string, _receiver: unknown): unknown {
-				const original = target[propertyKey];
-				const mock = mocks[propertyKey];
+				const original = (target as Record<string, unknown>)[propertyKey];
+				const mock = (mocks as Record<string, unknown>)[propertyKey];
 				if (spy.isFunction(original)) {
 					if (spy.isFunction(mock)) {
 						return spy.createCallRecorder(propertyKey, mock);
@@ -90,15 +90,15 @@ export class Spy<T extends Record<string, unknown>> {
 	}
 }
 
-export class SpiedProxy<T extends Record<string, unknown>> {
+export class SpiedProxy<T extends object> {
 	public constructor(
 		public spy: Spy<T>,
 		public mockedObject: T
 	) { }
 }
-export function createSpy<T extends Record<string, unknown>, K extends keyof T>(objectToMock: T, methodName: K, callThrough: boolean, mockImplementation?: T[K]): SpiedProxy<T>;
-export function createSpy<T extends Record<string, unknown>>(objectToMock: T, callThrough: boolean, mockImplementation?: Partial<T>): SpiedProxy<T>;
-export function createSpy<T extends Record<string, unknown>, K extends keyof T>(objectToMock: T, ...args: unknown[]): SpiedProxy<T> {
+export function createSpy<T extends object, K extends keyof T>(objectToMock: T, methodName: K, callThrough: boolean, mockImplementation?: T[K]): SpiedProxy<T>;
+export function createSpy<T extends object>(objectToMock: T, callThrough: boolean, mockImplementation?: Partial<T>): SpiedProxy<T>;
+export function createSpy<T extends object, K extends keyof T>(objectToMock: T, ...args: unknown[]): SpiedProxy<T> {
 	let methodName: K;
 	let callThrough: boolean;
 	let mockImplementation: Partial<T> = {};
