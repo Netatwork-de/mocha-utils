@@ -12,15 +12,18 @@ export type ArgumentTransformer = (args: any) => any;
 const identity: ArgumentTransformer = (_) => _;
 
 const noop: () => void = () => { /* noop */ };
+export type MethodNames<TObject> = { [Method in keyof TObject]: TObject[Method] extends Function ? Method : never }[keyof TObject];
+export type PickOnlyMethods<TObject> = { [Method in MethodNames<TObject>]: TObject[Method] };
+export type MethodParameters<TObject, TMethod extends MethodNames<TObject>> = Parameters<PickOnlyMethods<TObject>[TMethod]>;
 
-export class Spy<T extends object> {
+export class Spy<TObject extends object> {
 	public callRecords = new Map<string, unknown[][]>();
 
-	public getMock(objectToMock: T, callThrough: boolean = true, mocks: Partial<T> = {}): T {
+	public getMock(objectToMock: TObject, callThrough: boolean = true, mocks: Partial<TObject> = {}): TObject {
 		// eslint-disable-next-line @typescript-eslint/no-this-alias
 		const spy = this;
-		return new Proxy<T>(objectToMock, {
-			get(target: T, propertyKey: string, _receiver: unknown): unknown {
+		return new Proxy<TObject>(objectToMock, {
+			get(target: TObject, propertyKey: string, _receiver: unknown): unknown {
 				const original = (target as Record<string, unknown>)[propertyKey];
 				const mock = (mocks as Record<string, unknown>)[propertyKey];
 				if (spy.isFunction(original)) {
@@ -39,7 +42,7 @@ export class Spy<T extends object> {
 	public createCallRecorder(propertyKey: string, trapped: Function): Function {
 		// eslint-disable-next-line @typescript-eslint/no-this-alias
 		const spy = this;
-		return function (this: T, ...args: unknown[]): unknown {
+		return function (this: TObject, ...args: unknown[]): unknown {
 			spy.setCallRecord(propertyKey, args);
 			return trapped.apply(this, args);
 		}
@@ -57,21 +60,21 @@ export class Spy<T extends object> {
 
 	public clearCallRecords(): void { this.callRecords.clear(); }
 
-	public getCallCount(methodName: keyof T): number {
+	public getCallCount(methodName: MethodNames<TObject>): number {
 		const calls = this.callRecords.get(methodName as string);
 		return calls?.length ?? 0;
 	}
 
-	public getArguments(methodName: keyof T): unknown[][] | undefined;
-	public getArguments(methodName: keyof T, callIndex: number): unknown[] | undefined;
-	public getArguments(methodName: keyof T, callIndex?: number): unknown[][] | unknown[] | undefined {
+	public getArguments<TMethod extends MethodNames<TObject>>(methodName: TMethod): MethodParameters<TObject, TMethod>[] | undefined;
+	public getArguments<TMethod extends MethodNames<TObject>>(methodName: TMethod, callIndex: number): MethodParameters<TObject, TMethod> | undefined;
+	public getArguments<TMethod extends MethodNames<TObject>>(methodName: TMethod, callIndex?: number): MethodParameters<TObject, TMethod>[] | unknown[] | undefined {
 		const calls = this.callRecords.get(methodName as string);
 		if (calls === undefined) { return undefined; }
 		if (callIndex !== null && callIndex !== undefined) { return calls[callIndex]; }
 		return calls;
 	}
 
-	public isCalled(methodName: keyof T, times?: number): void {
+	public isCalled(methodName: MethodNames<TObject>, times?: number): void {
 		const callCount = this.getCallCount(methodName);
 		if (times) {
 			assert.strictEqual(callCount, times, `expected calls mismatch for ${methodName}`);
@@ -80,7 +83,7 @@ export class Spy<T extends object> {
 		}
 	}
 
-	public isCalledWith(methodName: keyof T, expectedArgs: unknown, callIndex?: number, argsTransformer: ArgumentTransformer = identity): void {
+	public isCalledWith(methodName: MethodNames<TObject>, expectedArgs: unknown, callIndex?: number, argsTransformer: ArgumentTransformer = identity): void {
 		const actual = argsTransformer(this.getArguments(methodName, callIndex!));
 		assert.deepStrictEqual(actual, expectedArgs, `expected argument mismatch for ${methodName}`);
 	}
@@ -90,30 +93,30 @@ export class Spy<T extends object> {
 	}
 }
 
-export class SpiedProxy<T extends object> {
+export class SpiedProxy<TObject extends object> {
 	public constructor(
-		public spy: Spy<T>,
-		public mockedObject: T
+		public spy: Spy<TObject>,
+		public mockedObject: TObject
 	) { }
 }
-export function createSpy<T extends object, K extends keyof T>(objectToMock: T, methodName: K, callThrough: boolean, mockImplementation?: T[K]): SpiedProxy<T>;
-export function createSpy<T extends object>(objectToMock: T, callThrough: boolean, mockImplementation?: Partial<T>): SpiedProxy<T>;
-export function createSpy<T extends object, K extends keyof T>(objectToMock: T, ...args: unknown[]): SpiedProxy<T> {
-	let methodName: K;
+export function createSpy<TObject extends object, TMethod extends MethodNames<TObject>>(objectToMock: TObject, methodName: TMethod, callThrough: boolean, mockImplementation?: TObject[TMethod]): SpiedProxy<TObject>;
+export function createSpy<TObject extends object>(objectToMock: TObject, callThrough: boolean, mockImplementation?: Partial<TObject>): SpiedProxy<TObject>;
+export function createSpy<TObject extends object, TMethod extends MethodNames<TObject>>(objectToMock: TObject, ...args: unknown[]): SpiedProxy<TObject> {
+	let methodName: TMethod;
 	let callThrough: boolean;
-	let mockImplementation: Partial<T> = {};
+	let mockImplementation: Partial<TObject> = {};
 
 	switch (args.length) {
 		case 3: {
-			let methodImpl: T[K];
-			[methodName, callThrough, methodImpl] = args as [K, boolean, T[K]];
-			mockImplementation = { [methodName]: methodImpl } as unknown as Partial<T>;
+			let methodImpl: TObject[TMethod];
+			[methodName, callThrough, methodImpl] = args as [TMethod, boolean, TObject[TMethod]];
+			mockImplementation = { [methodName]: methodImpl } as unknown as Partial<TObject>;
 			break;
 		}
 		case 2: {
-			const [arg1, arg2] = args as [boolean, Partial<T>];
+			const [arg1, arg2] = args as [boolean, Partial<TObject>];
 			if (typeof arg1 === 'string' && typeof arg2 === 'boolean') {
-				methodName = arg1 as K;
+				methodName = arg1 as TMethod;
 				callThrough = arg2;
 			} else if (typeof arg1 === 'boolean') {
 				callThrough = arg1;
@@ -133,6 +136,6 @@ export function createSpy<T extends object, K extends keyof T>(objectToMock: T, 
 			throw new Error('Unexpected number of arguments');
 	}
 
-	const spy = new Spy<T>();
+	const spy = new Spy<TObject>();
 	return new SpiedProxy(spy, spy.getMock(objectToMock, callThrough, mockImplementation));
 }
