@@ -7,48 +7,53 @@
 
 import { assert } from 'chai'
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type ArgumentTransformer = (args: any) => any;
+export type ArgumentTransformer = (args: unknown) => unknown;
 const identity: ArgumentTransformer = (_) => _;
 
 const noop: () => void = () => { /* noop */ };
 export type MethodNames<TObject> = { [Method in keyof TObject]: TObject[Method] extends Function ? Method : never }[keyof TObject];
 export type PickOnlyMethods<TObject> = { [Method in MethodNames<TObject>]: TObject[Method] };
 export type MethodParameters<TObject, TMethod extends MethodNames<TObject>> = Parameters<PickOnlyMethods<TObject>[TMethod]>;
+export type Indexable<TObject> = { [key in keyof TObject]: TObject[key] };
 
 export class Spy<TObject extends object> {
-	public callRecords = new Map<string, unknown[][]>();
+	public callRecords = new Map<MethodNames<TObject>, MethodParameters<TObject, MethodNames<TObject>>[]>();
 
 	public getMock(objectToMock: TObject, callThrough: boolean = true, mocks: Partial<TObject> = {}): TObject {
 		// eslint-disable-next-line @typescript-eslint/no-this-alias
 		const spy = this;
 		return new Proxy<TObject>(objectToMock, {
-			get(target: TObject, propertyKey: string, _receiver: unknown): unknown {
-				const original = (target as Record<string, unknown>)[propertyKey];
-				const mock = (mocks as Record<string, unknown>)[propertyKey];
-				if (spy.isFunction(original)) {
-					if (spy.isFunction(mock)) {
-						return spy.createCallRecorder(propertyKey, mock);
+			get<TMethod extends MethodNames<TObject>>(target: TObject, propertyKey: keyof TObject, _receiver: unknown): unknown {
+				const original = (target as Indexable<TObject>)[propertyKey];
+				const mock = (mocks as Indexable<TObject>)[propertyKey];
+				if (spy.isMethod(original)) {
+					if (spy.isMethod(mock)) {
+						return spy.createCallRecorder(propertyKey as TMethod, mock);
 					}
 					return callThrough
-						? spy.createCallRecorder(propertyKey, original)
-						: spy.createCallRecorder(propertyKey, noop)
+						? spy.createCallRecorder(propertyKey as TMethod, original)
+						: spy.createCallRecorder(propertyKey as TMethod, noop as TObject[TMethod])
 				}
 				return mock ?? (callThrough ? original : undefined);
 			}
 		});
 	}
 
-	public createCallRecorder(propertyKey: string, trapped: Function): Function {
+	/** @internal */
+	public createCallRecorder<TMethod extends MethodNames<TObject>>(
+		propertyKey: TMethod,
+		trapped: TObject[TMethod],
+	): (this: TObject, ...args: MethodParameters<TObject, TMethod>) => TObject[TMethod] {
 		// eslint-disable-next-line @typescript-eslint/no-this-alias
 		const spy = this;
-		return function (this: TObject, ...args: unknown[]): unknown {
+		return function (this: TObject, ...args: MethodParameters<TObject, TMethod>): TObject[TMethod] {
 			spy.setCallRecord(propertyKey, args);
-			return trapped.apply(this, args);
+			return (trapped as Function).apply(this, args);
 		}
 	}
 
-	public setCallRecord(methodName: string, args: unknown[]): void {
+	/** @internal */
+	public setCallRecord<TMethod extends MethodNames<TObject>>(methodName: TMethod, args: MethodParameters<TObject, TMethod>): void {
 		let record = this.callRecords.get(methodName);
 		if (record) {
 			record.push(args);
@@ -61,14 +66,14 @@ export class Spy<TObject extends object> {
 	public clearCallRecords(): void { this.callRecords.clear(); }
 
 	public getCallCount(methodName: MethodNames<TObject>): number {
-		const calls = this.callRecords.get(methodName as string);
+		const calls = this.callRecords.get(methodName);
 		return calls?.length ?? 0;
 	}
 
 	public getArguments<TMethod extends MethodNames<TObject>>(methodName: TMethod): MethodParameters<TObject, TMethod>[] | undefined;
 	public getArguments<TMethod extends MethodNames<TObject>>(methodName: TMethod, callIndex: number): MethodParameters<TObject, TMethod> | undefined;
-	public getArguments<TMethod extends MethodNames<TObject>>(methodName: TMethod, callIndex?: number): MethodParameters<TObject, TMethod>[] | unknown[] | undefined {
-		const calls = this.callRecords.get(methodName as string);
+	public getArguments<TMethod extends MethodNames<TObject>>(methodName: TMethod, callIndex?: number): MethodParameters<TObject, TMethod> | MethodParameters<TObject, TMethod>[] | undefined {
+		const calls = this.callRecords.get(methodName);
 		if (calls === undefined) { return undefined; }
 		if (callIndex !== null && callIndex !== undefined) { return calls[callIndex]; }
 		return calls;
@@ -83,12 +88,17 @@ export class Spy<TObject extends object> {
 		}
 	}
 
-	public isCalledWith(methodName: MethodNames<TObject>, expectedArgs: unknown, callIndex?: number, argsTransformer: ArgumentTransformer = identity): void {
+	public isCalledWith<TMethod extends MethodNames<TObject>>(
+		methodName: TMethod,
+		expectedArgs: MethodParameters<TObject, TMethod> | MethodParameters<TObject, TMethod>[],
+		callIndex?: number,
+		argsTransformer: ArgumentTransformer = identity
+	): void {
 		const actual = argsTransformer(this.getArguments(methodName, callIndex!));
 		assert.deepStrictEqual(actual, expectedArgs, `expected argument mismatch for ${methodName}`);
 	}
 
-	private isFunction(arg: unknown): arg is Function {
+	private isMethod<TMethod extends MethodNames<TObject>>(arg: unknown): arg is TObject[TMethod] {
 		return typeof arg === 'function'
 	}
 }
