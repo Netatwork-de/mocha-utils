@@ -1,3 +1,8 @@
+## <small>1.1.4 (2020-11-19)</small>
+
+* fix(spy): 0 call count assertion ([b6c31e2](https://github.com/Netatwork-de/mocha-utils/commit/b6c31e2))
+* chore(spy): type definition enhancement ([886a671](https://github.com/Netatwork-de/mocha-utils/commit/886a671), [fff45f7](https://github.com/Netatwork-de/mocha-utils/commit/fff45f7), [3115009](https://github.com/Netatwork-de/mocha-utils/commit/3115009))
+
 ## <small>1.1.3 (2020-11-09)</small>
 
 * chore: corrected the FF error details for real this time ([bdd7951](https://github.com/Netatwork-de/mocha-utils/commit/bdd7951))
