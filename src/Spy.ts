@@ -7,14 +7,15 @@
 
 import { assert } from 'chai'
 
-export type ArgumentTransformer = (args: unknown) => unknown;
-const identity: ArgumentTransformer = (_) => _;
-
 const noop: () => void = () => { /* noop */ };
 export type MethodNames<TObject> = { [Method in keyof TObject]: TObject[Method] extends Function ? Method : never }[keyof TObject];
 export type PickOnlyMethods<TObject> = { [Method in MethodNames<TObject>]: TObject[Method] };
 export type MethodParameters<TObject, TMethod extends MethodNames<TObject>> = Parameters<PickOnlyMethods<TObject>[TMethod]>;
 export type Indexable<TObject> = { [key in keyof TObject]: TObject[key] };
+export type ArgumentTransformer<TObject, TMethod extends MethodNames<TObject>> = (
+	args: MethodParameters<TObject, TMethod> | MethodParameters<TObject, TMethod>[] | undefined
+) => unknown;
+const identity: ArgumentTransformer<unknown, never> = (_) => _;
 
 export class Spy<TObject extends object> {
 	public callRecords = new Map<MethodNames<TObject>, MethodParameters<TObject, MethodNames<TObject>>[]>();
@@ -82,7 +83,7 @@ export class Spy<TObject extends object> {
 	public isCalled(methodName: MethodNames<TObject>, times?: number): void {
 		const callCount = this.getCallCount(methodName);
 		if (times != null) {
-			assert.strictEqual(callCount, times, `expected calls mismatch for ${methodName}`);
+			assert.strictEqual(callCount, times, `call count mismatch for ${methodName}`);
 		} else {
 			assert.isAbove(callCount, 0, `expected ${methodName} to have been called at least once, but wasn't`);
 		}
@@ -90,12 +91,27 @@ export class Spy<TObject extends object> {
 
 	public isCalledWith<TMethod extends MethodNames<TObject>>(
 		methodName: TMethod,
-		expectedArgs: MethodParameters<TObject, TMethod> | MethodParameters<TObject, TMethod>[],
+		expectedArgs: MethodParameters<TObject, TMethod>,
+		callIndex: number,
+	): void;
+	public isCalledWith<TMethod extends MethodNames<TObject>>(
+		methodName: TMethod,
+		expectedArgs: MethodParameters<TObject, TMethod>[],
+	): void;
+	public isCalledWith<TMethod extends MethodNames<TObject>>(
+		methodName: TMethod,
+		expectedArgs: MethodParameters<TObject, TMethod> | MethodParameters<TObject, TMethod>[] | unknown,
+		callIndex: number | undefined,
+		argsTransformer: ArgumentTransformer<TObject, TMethod>,
+	): void;
+	public isCalledWith<TMethod extends MethodNames<TObject>>(
+		methodName: TMethod,
+		expectedArgs: MethodParameters<TObject, TMethod> | MethodParameters<TObject, TMethod>[] | unknown,
 		callIndex?: number,
-		argsTransformer: ArgumentTransformer = identity
+		argsTransformer: ArgumentTransformer<TObject, TMethod> = identity,
 	): void {
 		const actual = argsTransformer(this.getArguments(methodName, callIndex!));
-		assert.deepStrictEqual(actual, expectedArgs, `expected argument mismatch for ${methodName}`);
+		assert.deepStrictEqual(actual, expectedArgs, `argument mismatch for ${methodName}`);
 	}
 
 	private isMethod<TMethod extends MethodNames<TObject>>(arg: unknown): arg is TObject[TMethod] {
