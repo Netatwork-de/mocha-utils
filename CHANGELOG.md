@@ -1,3 +1,7 @@
+## <small>1.1.5 (2020-11-20)</small>
+
+* chore(spy): typing enhancements ([250d668](https://github.com/Netatwork-de/mocha-utils/commit/250d668), [5f5ecd9](https://github.com/Netatwork-de/mocha-utils/commit/5f5ecd9))
+
 ## <small>1.1.4 (2020-11-19)</small>
 
 * fix(spy): 0 call count assertion ([b6c31e2](https://github.com/Netatwork-de/mocha-utils/commit/b6c31e2))
