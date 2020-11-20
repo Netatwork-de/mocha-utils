@@ -1,6 +1,6 @@
 {
   "name": "@netatwork/mocha-utils",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "Utility package for mocha based test setup",
   "main": "dist/index.js",
   "typings": "dist/types/index",
