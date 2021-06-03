@@ -1,3 +1,9 @@
+## <small>1.1.6 (2021-06-03)</small>
+
+* chore: deps update and fixed linting ([f50d7f5](https://github.com/Netatwork-de/mocha-utils/commit/f50d7f5))
+
+
+
 ## <small>1.1.5 (2020-11-20)</small>
 
 * chore(spy): typing enhancements ([250d668](https://github.com/Netatwork-de/mocha-utils/commit/250d668), [5f5ecd9](https://github.com/Netatwork-de/mocha-utils/commit/5f5ecd9))
