@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /*! ********************************************************************************
  * Disclaimer: 
  * This is influenced from internals of Aurelia2: https://github.com/aurelia/aurelia

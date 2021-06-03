@@ -3,6 +3,7 @@ import { FilePattern, ConfigOptions } from 'karma';
 class KarmaMochaHtmlReporter {
     public static readonly $inject = ['baseReporterDecorator', 'config', 'logger', 'helper', 'formatError'] as const;
     public constructor(
+        // eslint-disable-next-line @typescript-eslint/ban-types
         decorator: Function,
         config: ConfigOptions,
     ) {
@@ -11,6 +12,7 @@ class KarmaMochaHtmlReporter {
 
         decorator(this);
 
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         const files = config.files!;
         let index = Math.max(
             files.findIndex((file) => MOCHA_CORE_PATTERN.test((file as FilePattern).pattern)),

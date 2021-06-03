@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/ban-types */
 /*! ********************************************************************************
  * Disclaimer:
  * This is implementation of Spy is influenced from Aurelia2's Spy implementation
@@ -83,9 +85,9 @@ export class Spy<TObject extends object> {
 	public isCalled(methodName: MethodNames<TObject>, times?: number): void {
 		const callCount = this.getCallCount(methodName);
 		if (times != null) {
-			assert.strictEqual(callCount, times, `call count mismatch for ${methodName}`);
+			assert.strictEqual(callCount, times, `call count mismatch for ${String(methodName)}`);
 		} else {
-			assert.isAbove(callCount, 0, `expected ${methodName} to have been called at least once, but wasn't`);
+			assert.isAbove(callCount, 0, `expected ${String(methodName)} to have been called at least once, but wasn't`);
 		}
 	}
 
@@ -110,8 +112,9 @@ export class Spy<TObject extends object> {
 		callIndex?: number,
 		argsTransformer: ArgumentTransformer<TObject, TMethod> = identity,
 	): void {
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const actual = argsTransformer(this.getArguments(methodName, callIndex!));
-		assert.deepStrictEqual(actual, expectedArgs, `argument mismatch for ${methodName}`);
+		assert.deepStrictEqual(actual, expectedArgs, `argument mismatch for ${String(methodName)}`);
 	}
 
 	private isMethod<TMethod extends MethodNames<TObject>>(arg: unknown): arg is TObject[TMethod] {
@@ -148,13 +151,13 @@ export function createSpy<TObject extends object, TMethod extends MethodNames<TO
 				callThrough = arg1;
 				mockImplementation = arg2;
 			} else {
-				throw new Error(`unconsumed arguments: ${arg1}, ${arg2}`);
+				throw new Error(`unconsumed arguments: ${String(arg1)}, ${String(arg2)}`);
 			}
 			break;
 		}
 		case 1: {
 			const arg1 = args[0];
-			if (typeof arg1 !== 'boolean') { throw new Error(`unconsumed argument: ${arg1}`); }
+			if (typeof arg1 !== 'boolean') { throw new Error(`unconsumed argument: ${String(arg1)}`); }
 			callThrough = arg1;
 			break;
 		}
