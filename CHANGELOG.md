@@ -1,3 +1,9 @@
+## 2.0.0 (2021-06-26)
+
+* BREAKING CHANGE: moved Spy impl. to @netatwork/spy ([2e8b737](https://github.com/Netatwork-de/mocha-utils/commit/2e8b737))
+
+The new repository is https://github.com/Netatwork-de/spy.
+
 ## <small>1.1.6 (2021-06-03)</small>
 
 * chore: deps update and fixed linting ([f50d7f5](https://github.com/Netatwork-de/mocha-utils/commit/f50d7f5))
