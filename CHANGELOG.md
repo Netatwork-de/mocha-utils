@@ -1,3 +1,10 @@
+## 2.1.0 (2022-01-13)
+
+* 2.1.0 ([83a3056](https://github.com/Netatwork-de/mocha-utils/commit/83a3056))
+* chore: updated all dependencies ([9f92863](https://github.com/Netatwork-de/mocha-utils/commit/9f92863))
+
+
+
 ## 2.0.0 (2021-06-26)
 
 * BREAKING CHANGE: moved Spy impl. to @netatwork/spy ([2e8b737](https://github.com/Netatwork-de/mocha-utils/commit/2e8b737))
