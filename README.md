@@ -23,12 +23,9 @@ The goal is to facilitate generation of the JUnit report at the end of test, as 
 // .mocharc.js
 
 module.exports = {
-    reporter: '@netatwork/mocha-utils/dist/JunitSpecReporter.js',
-    // Optionally you can also provide the options for every reporters.
-	reporterOptions: {
-        // Optional: provide the path for the generated JUnit report
-		mochaFile: './tests/.artifacts/results.xml'
-	},
+  reporter: '@netatwork/mocha-utils/dist/JunitSpecReporter.js',
+  // Optional: provide the path for the generated JUnit report
+  reporterOptions: ['mochaFile=./tests/.artifacts/results.xml'],
 };
 ```
 
