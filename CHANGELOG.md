@@ -1,6 +1,10 @@
+## <small>2.1.1 (2022-01-13)</small>
+
+* docs: mocha reporter-options ([b091d60](https://github.com/Netatwork-de/mocha-utils/commit/b091d60))
+
+
 ## 2.1.0 (2022-01-13)
 
-* 2.1.0 ([83a3056](https://github.com/Netatwork-de/mocha-utils/commit/83a3056))
 * chore: updated all dependencies ([9f92863](https://github.com/Netatwork-de/mocha-utils/commit/9f92863))
 
 
