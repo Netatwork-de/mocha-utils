@@ -1,6 +1,10 @@
+## <small>2.1.3 (2022-03-10)</small>
+
+* chore: fixed deps vulnerabilities ([b144fbb](https://github.com/Netatwork-de/mocha-utils/commit/b144fbb))
+
+
 ## <small>2.1.2 (2022-03-10)</small>
 
-* 2.1.2 ([82ea62b](https://github.com/Netatwork-de/mocha-utils/commit/82ea62b))
 * chore: updated deps ([d9783ff](https://github.com/Netatwork-de/mocha-utils/commit/d9783ff))
 
 
