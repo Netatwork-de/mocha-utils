@@ -1,3 +1,9 @@
+## <small>2.1.2 (2022-03-10)</small>
+
+* 2.1.2 ([82ea62b](https://github.com/Netatwork-de/mocha-utils/commit/82ea62b))
+* chore: updated deps ([d9783ff](https://github.com/Netatwork-de/mocha-utils/commit/d9783ff))
+
+
 ## <small>2.1.1 (2022-01-13)</small>
 
 * docs: mocha reporter-options ([b091d60](https://github.com/Netatwork-de/mocha-utils/commit/b091d60))
