@@ -1,3 +1,13 @@
+## <small>2.1.4 (2022-12-27)</small>
+
+* chore: updated deps ([d9783ff](https://github.com/Netatwork-de/mocha-utils/commit/d9783ff))
+* chore(ci): updated node version to 16 ([fa4f11e](https://github.com/Netatwork-de/mocha-utils/commit/fa4f11e))
+* chore(deps): bump engine.io and socket.io ([c8bb22e](https://github.com/Netatwork-de/mocha-utils/commit/c8bb22e))
+* chore(deps): bump minimatch from 3.0.4 to 3.1.2 ([875f6b1](https://github.com/Netatwork-de/mocha-utils/commit/875f6b1))
+* chore(deps): bump qs and body-parser ([1cb0b95](https://github.com/Netatwork-de/mocha-utils/commit/1cb0b95))
+* chore(deps): bump socket.io-parser from 4.0.4 to 4.0.5 ([3237484](https://github.com/Netatwork-de/mocha-utils/commit/3237484))
+
+
 ## <small>2.1.3 (2022-03-10)</small>
 
 * chore: fixed deps vulnerabilities ([b144fbb](https://github.com/Netatwork-de/mocha-utils/commit/b144fbb))
