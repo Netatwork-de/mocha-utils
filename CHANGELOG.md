@@ -1,3 +1,7 @@
+## <small>2.1.5 (2023-02-01)</small>
+
+* fix: security vulnerabilities ([ef9590b](https://github.com/Netatwork-de/mocha-utils/commit/ef9590b))
+
 ## <small>2.1.4 (2022-12-27)</small>
 
 * chore: updated deps ([d9783ff](https://github.com/Netatwork-de/mocha-utils/commit/d9783ff))
