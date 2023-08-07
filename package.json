@@ -32,7 +32,7 @@
     "@commitlint/config-conventional": "^17.4.2",
     "@types/karma": "^6.3.3",
     "@types/mocha": "^10.0.1",
-    "@types/node": "^18.11.18",
+    "@types/node": "^20.4.8",
     "@typescript-eslint/eslint-plugin": "^5.50.0",
     "@typescript-eslint/parser": "^5.50.0",
     "conventional-changelog-cli": "^3.0.0",
