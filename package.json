@@ -29,23 +29,23 @@
   "homepage": "https://github.com/Netatwork-de/mocha-utils#readme",
   "devDependencies": {
     "@commitlint/cli": "^18.4.3",
-    "@commitlint/config-conventional": "^18.1.0",
+    "@commitlint/config-conventional": "^18.4.3",
     "@types/karma": "^6.3.3",
-    "@types/mocha": "^10.0.1",
-    "@types/node": "^20.4.8",
-    "@typescript-eslint/eslint-plugin": "^5.50.0",
-    "@typescript-eslint/parser": "^5.50.0",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "^20.10.2",
+    "@typescript-eslint/eslint-plugin": "^6.13.1",
+    "@typescript-eslint/parser": "^6.13.1",
     "conventional-changelog-cli": "^4.1.0",
     "copyfiles": "^2.4.1",
-    "eslint": "^8.33.0",
+    "eslint": "^8.55.0",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-jsdoc": "^46.1.0",
     "husky": "^8.0.3",
     "karma": "^6.4.1",
     "mocha": "^10.2.0",
-    "rimraf": "^5.0.0",
+    "rimraf": "^5.0.5",
     "standard-version": "^9.5.0",
-    "typescript": "^5.1.6"
+    "typescript": "^5.3.2"
   },
   "dependencies": {
     "mocha-junit-reporter": "^2.2.0"
