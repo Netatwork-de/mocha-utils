@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/Netatwork-de/mocha-utils#readme",
   "devDependencies": {
-    "@commitlint/cli": "^18.4.3",
+    "@commitlint/cli": "^19.0.3",
     "@commitlint/config-conventional": "^19.0.3",
     "@types/karma": "^6.3.3",
     "@types/mocha": "^10.0.6",
