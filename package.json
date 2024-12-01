@@ -33,7 +33,7 @@
     "@types/karma": "^6.3.3",
     "@types/mocha": "^10.0.6",
     "@types/node": "^20.12.8",
-    "@typescript-eslint/eslint-plugin": "^6.13.1",
+    "@typescript-eslint/eslint-plugin": "^8.16.0",
     "@typescript-eslint/parser": "^6.13.1",
     "conventional-changelog-cli": "^5.0.0",
     "copyfiles": "^2.4.1",
