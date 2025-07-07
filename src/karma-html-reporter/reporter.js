@@ -143,7 +143,12 @@ try {
             span.style.color = $class;
 
             (/** @type {HTMLDivElement} */(this.dots)).appendChild(span);
-            suiteContainer.appendChild(this.createSpecResult(test, $class, error));
+            const specResult = this.createSpecResult(test, $class, error);
+            suiteContainer.appendChild(specResult);
+            span.addEventListener('click', () => {
+                specResult.scrollIntoView();
+                specResult.querySelector('a')?.focus();
+            });
         }
 
         /**
@@ -202,6 +207,19 @@ try {
     const mocha = windw.mocha;
     OriginalReporterFunction = /** @type {typeof import('mocha').reporters.Base} */ (mocha['_reporter']);
     mocha['_reporter'] = MochaReporter;
+
+    const karmaRoot = window.parent.document;
+    karmaRoot.head.querySelectorAll('[data-karma-css-fix]').forEach(e => e.remove());
+    const karmaCssFix = karmaRoot.createElement('style');
+    karmaCssFix.dataset.karmaCssFix = '';
+    karmaCssFix.innerHTML = `
+        body {
+            display: flex;
+            flex-direction: column;
+            height: 100dvh;
+        }
+    `;
+    karmaRoot.head.appendChild(karmaCssFix);
 } catch (e) {
     console.log('Not running the kmhtml reporter. Note that this is a dev-only reporter, meant to be used in browser.');
 }
