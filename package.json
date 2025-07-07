@@ -3,7 +3,6 @@
   "version": "2.1.5",
   "description": "Utility package for mocha based test setup",
   "main": "dist/index.js",
-  "typings": "dist/types/index",
   "scripts": {
     "prebuild": "rimraf dist & eslint . --ext .ts --cache",
     "lint": "eslint . --ext .ts --cache",
