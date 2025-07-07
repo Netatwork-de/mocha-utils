@@ -1,31 +1,14 @@
-## <small>2.1.5 (2023-02-01)</small>
+# Changelog
 
-* fix: security vulnerabilities ([ef9590b](https://github.com/Netatwork-de/mocha-utils/commit/ef9590b))
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-## <small>2.1.4 (2022-12-27)</small>
-
-* chore: updated deps ([d9783ff](https://github.com/Netatwork-de/mocha-utils/commit/d9783ff))
-* chore(ci): updated node version to 16 ([fa4f11e](https://github.com/Netatwork-de/mocha-utils/commit/fa4f11e))
-* chore(deps): bump engine.io and socket.io ([c8bb22e](https://github.com/Netatwork-de/mocha-utils/commit/c8bb22e))
-* chore(deps): bump minimatch from 3.0.4 to 3.1.2 ([875f6b1](https://github.com/Netatwork-de/mocha-utils/commit/875f6b1))
-* chore(deps): bump qs and body-parser ([1cb0b95](https://github.com/Netatwork-de/mocha-utils/commit/1cb0b95))
-* chore(deps): bump socket.io-parser from 4.0.4 to 4.0.5 ([3237484](https://github.com/Netatwork-de/mocha-utils/commit/3237484))
+### [2.1.6](https://github.com/Netatwork-de/mocha-utils/compare/v2.1.1...v2.1.6) (2025-07-07)
 
 
-## <small>2.1.3 (2022-03-10)</small>
+### Bug Fixes
 
-* chore: fixed deps vulnerabilities ([b144fbb](https://github.com/Netatwork-de/mocha-utils/commit/b144fbb))
-
-
-## <small>2.1.2 (2022-03-10)</small>
-
-* chore: updated deps ([d9783ff](https://github.com/Netatwork-de/mocha-utils/commit/d9783ff))
-
-
-## <small>2.1.1 (2022-01-13)</small>
-
-* docs: mocha reporter-options ([b091d60](https://github.com/Netatwork-de/mocha-utils/commit/b091d60))
-
+* kmhtml css ([4ba5bb2](https://github.com/Netatwork-de/mocha-utils/commit/4ba5bb2dc88ac753215a23fa479594512f78bba5))
+* security vulnerabilities ([ef9590b](https://github.com/Netatwork-de/mocha-utils/commit/ef9590b39aed71fbdbe9c7b45091b0dc82aadb04))
 
 ## 2.1.0 (2022-01-13)
 

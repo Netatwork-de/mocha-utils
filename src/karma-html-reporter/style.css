@@ -7,6 +7,9 @@
 body {
     background-color: var(--smokewhite);
     font-family: monospace, Monaco;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
 }
 
 .kmhtml {
@@ -25,6 +28,7 @@ body {
 
 .kmhtml .dots .dot {
     display: inline-block;
+    cursor: pointer;
 }
 
 .kmhtml .summary {
@@ -43,14 +47,9 @@ body {
     background: var(--red);
 }
 
-.kmhtml .ul-container {
-    max-height: 90vh;
-    overflow: auto;
-}
-
 .kmhtml ul {
     list-style-type: none;
-    padding-left: 1em;
+    padding: 1rem;
 }
 
 .kmhtml .passed {
